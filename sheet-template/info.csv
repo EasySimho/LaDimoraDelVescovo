@@ -1,0 +1,64 @@
+chiave,val_it,val_en,val_fr,val_es,val_de
+casa_nome,La Dimora del Vescovo,,,,
+casa_sottotitolo,"Borgo storico, Biella Piazzo","Historic old town, Biella Piazzo","Vieille ville historique, Biella Piazzo","Casco histórico, Biella Piazzo","Historische Altstadt, Biella Piazzo"
+benvenuto_testo,"Benvenuto alla Dimora del Vescovo! Siamo felici di ospitarti.
+
+La casa è al terzo piano di un palazzo del Seicento in via Vescovado, nel cuore del Piazzo. Troverai qui dentro tutto quello che ti serve: come entrare, le poche regole della casa e i nostri posti preferiti qui intorno — quelli veri, non quelli delle guide.
+
+Per qualsiasi cosa scrivici pure, rispondiamo in fretta.","Welcome to La Dimora del Vescovo! We're glad to have you.
+
+The flat is on the third floor of a 17th-century building on via Vescovado, in the heart of the Piazzo. Everything you need is in here: how to get in, the few house rules, and our favourite spots nearby — the real ones, not the guidebook ones.
+
+Message us any time, we reply quickly.","Bienvenue à La Dimora del Vescovo ! Nous sommes ravis de vous accueillir.
+
+L'appartement est au troisième étage d'un immeuble du XVIIe siècle, via Vescovado, au cœur du Piazzo. Vous trouverez ici tout ce qu'il vous faut : comment entrer, les quelques règles de la maison et nos adresses préférées dans le quartier.
+
+Écrivez-nous à tout moment, nous répondons vite.","¡Bienvenido a La Dimora del Vescovo! Nos alegra tenerte aquí.
+
+El piso está en la tercera planta de un edificio del siglo XVII, en via Vescovado, en pleno Piazzo. Aquí encontrarás todo lo que necesitas: cómo entrar, las pocas normas de la casa y nuestros sitios favoritos del barrio.
+
+Escríbenos cuando quieras, respondemos rápido.","Willkommen in La Dimora del Vescovo! Schön, dass Sie da sind.
+
+Die Wohnung liegt im dritten Stock eines Hauses aus dem 17. Jahrhundert in der via Vescovado, mitten im Piazzo. Hier finden Sie alles Wichtige: den Zugang zur Wohnung, die wenigen Hausregeln und unsere Lieblingsadressen in der Nähe.
+
+Schreiben Sie uns jederzeit, wir antworten schnell."
+checkin_orario,15:00,,,,
+checkin_testo,"Il portone di via Vescovado 16 si apre con il codice **4721**. Sali al terzo piano, la porta è quella a destra. Le chiavi sono nella cassetta a muro accanto alla porta, stesso codice.","The street door at via Vescovado 16 opens with code **4721**. Go up to the third floor, the door is on your right. The keys are in the wall box next to the door, same code.","La porte cochère du 16 via Vescovado s'ouvre avec le code **4721**. Montez au troisième étage, la porte est à droite. Les clés sont dans le boîtier mural à côté de la porte, même code.","El portal de via Vescovado 16 se abre con el código **4721**. Sube al tercer piso, la puerta es la de la derecha. Las llaves están en la caja de la pared junto a la puerta, mismo código.","Die Haustür in der via Vescovado 16 öffnet sich mit dem Code **4721**. Gehen Sie in den dritten Stock, die Tür ist rechts. Die Schlüssel liegen im Wandkasten neben der Tür, gleicher Code."
+checkout_orario,10:30,,,,
+checkout_testo,"Niente pulizie da fare, ci pensiamo noi. Ti chiediamo solo tre cose:
+
+- Rimetti le chiavi nella cassetta a muro e richiudila.
+- Butta l'umido nel bidone marrone in cortile.
+- Chiudi le finestre e spegni il condizionatore.
+
+Grazie, e buon viaggio!","No cleaning needed, we take care of it. Just three things:
+
+- Put the keys back in the wall box and lock it.
+- Take the food waste to the brown bin in the courtyard.
+- Close the windows and switch off the air conditioning.
+
+Thank you, and safe travels!","Pas de ménage à faire, on s'en occupe. Seulement trois choses :
+
+- Remettez les clés dans le boîtier mural et refermez-le.
+- Jetez les déchets alimentaires dans la poubelle marron dans la cour.
+- Fermez les fenêtres et éteignez la climatisation.
+
+Merci et bon voyage !","No hay que limpiar, lo hacemos nosotros. Solo tres cosas:
+
+- Deja las llaves en la caja de la pared y ciérrala.
+- Tira los restos de comida al contenedor marrón del patio.
+- Cierra las ventanas y apaga el aire acondicionado.
+
+¡Gracias y buen viaje!","Putzen müssen Sie nicht, das übernehmen wir. Nur drei Dinge:
+
+- Legen Sie die Schlüssel zurück in den Wandkasten und schließen Sie ihn ab.
+- Bringen Sie Biomüll in die braune Tonne im Hof.
+- Schließen Sie die Fenster und schalten Sie die Klimaanlage aus.
+
+Danke und gute Reise!"
+indirizzo_casa,"Via Vescovado 16, 13900 Biella (BI)",,,,
+coord_lat,45.5657,,,,
+coord_lng,8.0468,,,,
+telefono_host,+39 015 123456,,,,
+whatsapp_host,+393401234567,,,,
+email_host,ciao@ladimoradelvescovo.it,,,,
