@@ -165,6 +165,7 @@ export const VideoSchema = z.object({
   video_id: z.string().transform((v) => v.trim()),
   durata: text,
   ordine: int,
+  verticale: bool(true),
   titolo: MultilangSchema,
 });
 

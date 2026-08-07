@@ -164,7 +164,7 @@ function Body({
 function VideoBlock({ videos, lang }: { videos: Video[]; lang: Lang }) {
   if (videos.length === 0) return null;
   return (
-    <ul className="space-y-4">
+    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
       {videos.map((video, index) => (
         <VideoFacade
           key={video.id ?? `${video.video_id}-${index}`}

@@ -62,8 +62,8 @@ const tabs = {
   ),
 
   video: toCsv(
-    ["id", "sezione", "piattaforma", "video_id", "durata", "ordine", ...langCols("titolo")],
-    data.video.map((v) => ({ ...v, ...spread("titolo", v.titolo) })),
+    ["id", "sezione", "piattaforma", "video_id", "durata", "ordine", "verticale", ...langCols("titolo")],
+    data.video.map((v) => ({ ...v, verticale: "TRUE", ...spread("titolo", v.titolo) })),
   ),
 
   faq: toCsv(

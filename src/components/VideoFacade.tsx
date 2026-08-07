@@ -14,6 +14,7 @@ import type { Video } from "@/lib/schema";
  */
 export function VideoFacade({ video, title }: { video: Video; title: string }) {
   const [playing, setPlaying] = useState(false);
+  const isVertical = video.verticale !== false;
 
   const poster =
     video.piattaforma === "vimeo"
@@ -26,8 +27,8 @@ export function VideoFacade({ video, title }: { video: Video; title: string }) {
       : `https://www.youtube-nocookie.com/embed/${video.video_id}?autoplay=1&rel=0&modestbranding=1`;
 
   return (
-    <li className="card overflow-hidden">
-      <div className="relative aspect-video bg-panna-3">
+    <li className={`card overflow-hidden ${isVertical ? "max-w-xs sm:max-w-sm mx-auto w-full" : ""}`}>
+      <div className={`relative bg-panna-3 ${isVertical ? "aspect-[9/16]" : "aspect-video"}`}>
         {playing ? (
           <iframe
             src={embed}
@@ -64,7 +65,7 @@ export function VideoFacade({ video, title }: { video: Video; title: string }) {
         )}
       </div>
 
-      <p className="px-4 py-3 font-display text-[0.95rem] font-semibold leading-snug tracking-tight">
+      <p className="px-4 py-3 font-display text-[0.95rem] font-semibold leading-snug tracking-tight text-center sm:text-left">
         {title}
       </p>
     </li>
