@@ -78,6 +78,8 @@ function Body({
     case "places": {
       const places = data.luoghi.filter((p) => p.sezione === section.key);
       const videos = data.video.filter((v) => v.sezione === section.key);
+      const isEmpty = places.length === 0 && videos.length === 0;
+
       return (
         <div className="space-y-6">
           {section.key === "emergenza" && (
@@ -85,8 +87,14 @@ function Body({
               {dict.emergenza.hint}
             </p>
           )}
-          <PlaceList places={places} lang={lang} />
-          <VideoBlock videos={videos} lang={lang} />
+          {isEmpty ? (
+            <Empty lang={lang} />
+          ) : (
+            <>
+              {places.length > 0 && <PlaceList places={places} lang={lang} />}
+              {videos.length > 0 && <VideoBlock videos={videos} lang={lang} />}
+            </>
+          )}
         </div>
       );
     }

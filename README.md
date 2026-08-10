@@ -62,14 +62,25 @@ iniziano con `- ` e `**grassetto**` per codici e orari.
 
 ---
 
+### 1.1 Creare una Google API Key (Necessaria per Vercel)
+
+Google Cloud offre un piano gratuito generoso (100.000+ richieste al giorno):
+
+1. Vai su [Google Cloud Console](https://console.cloud.google.com/) e crea un nuovo progetto (es. "La Dimora del Vescovo").
+2. Nella barra di ricerca in alto, cerca **Google Sheets API** e clicca **Abilita** (Enable).
+3. Vai nella sezione **API e servizi → Credenziali** (Credentials).
+4. Clicca su **+ Crea credenziali → Chiave API** (API Key).
+5. Copia la chiave generata: è la tua `GOOGLE_API_KEY`.
+
+---
+
 ## 2. Sviluppo in locale
 
 ```bash
 npm install
 ```
 
-Copia `.env.example` in `.env.local` e metti il tuo `SHEET_ID`. Senza, parte
-comunque con i dati di esempio.
+Copia `.env.example` in `.env.local` e metti il tuo `SHEET_ID` e la tua `GOOGLE_API_KEY`. Senza, parte comunque con i dati di esempio.
 
 ```bash
 npm run dev
@@ -91,6 +102,7 @@ In **Settings → Environment Variables** aggiungi:
 | variabile | valore |
 |---|---|
 | `SHEET_ID` | l'id copiato al passo 1 |
+| `GOOGLE_API_KEY` | la chiave API creata al passo 1.1 |
 | `REVALIDATE_SECRET` | una parola lunga che scegli tu |
 
 Fatto. L'URL che ti dà Vercel è quello da mettere nel QR code in casa.

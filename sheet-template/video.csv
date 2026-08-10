@@ -1,4 +1,6 @@
 id,sezione,piattaforma,video_id,durata,ordine,verticale,titolo_it,titolo_en,titolo_fr,titolo_es,titolo_de
-come-entrare,checkin,youtube,aqz-KE-bpKQ,1:20,1,TRUE,Come entrare in casa,How to get into the flat,Comment entrer dans l'appartement,Cómo entrar en el piso,So kommen Sie in die Wohnung
-lavatrice,servizi,youtube,aqz-KE-bpKQ,2:05,2,TRUE,Usare la lavatrice,Using the washing machine,Utiliser le lave-linge,Usar la lavadora,Die Waschmaschine benutzen
-funicolare,trasporti,youtube,aqz-KE-bpKQ,1:45,3,TRUE,Prendere la funicolare del Piazzo,Taking the Piazzo funicular,Prendre le funiculaire du Piazzo,Coger el funicular del Piazzo,Mit der Piazzo-Standseilbahn fahren
+trovare-appartamento,checkin,youtube,A9o5o6sidVg,,1,TRUE,Trovare l'appartamento,How to find the apartment,Trouver l'appartement,Cómo encontrar el apartamento,Die Wohnung finden
+apertura-porta,checkin,youtube,gKMcRdHMEdg,,2,TRUE,Apertura porta,Opening the door,Ouverture de la porte,Apertura de la puerta,Tür öffnen
+accendere-condizionatore,servizi,youtube,19jtJWNiD_w,,1,TRUE,Accendere il condizionatore,Turning on the air conditioner,Allumer la climatisation,Encender el aire acondicionado,Klimaanlage einschalten
+usare-televisore,servizi,youtube,wFDW4LDXaQM,,2,TRUE,Usare il televisore,Using the TV,Utiliser la télévision,Usar el televisor,Fernseher benutzen
+accendere-luci,servizi,youtube,1be182GMd7k,,3,TRUE,Accendere le luci,Turning on the lights,Allumer les lumières,Encender las luces,Lichter einschalten

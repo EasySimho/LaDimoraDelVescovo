@@ -91,48 +91,83 @@
   ],
   "video": [
     {
-      "id": "come-entrare",
+      "id": "trovare-appartamento",
       "sezione": "checkin",
       "piattaforma": "youtube",
-      "video_id": "aqz-KE-bpKQ",
-      "durata": "1:20",
+      "video_id": "A9o5o6sidVg",
+      "durata": "",
       "ordine": 1,
+      "verticale": true,
       "titolo": {
-        "it": "Come entrare in casa",
-        "en": "How to get into the flat",
-        "fr": "Comment entrer dans l'appartement",
-        "es": "Cómo entrar en el piso",
-        "de": "So kommen Sie in die Wohnung"
+        "it": "Trovare l'appartamento",
+        "en": "How to find the apartment",
+        "fr": "Trouver l'appartement",
+        "es": "Cómo encontrar el apartamento",
+        "de": "Die Wohnung finden"
       }
     },
     {
-      "id": "lavatrice",
+      "id": "apertura-porta",
+      "sezione": "checkin",
+      "piattaforma": "youtube",
+      "video_id": "gKMcRdHMEdg",
+      "durata": "",
+      "ordine": 2,
+      "verticale": true,
+      "titolo": {
+        "it": "Apertura porta",
+        "en": "Opening the door",
+        "fr": "Ouverture de la porte",
+        "es": "Apertura de la puerta",
+        "de": "Tür öffnen"
+      }
+    },
+    {
+      "id": "accendere-condizionatore",
       "sezione": "servizi",
       "piattaforma": "youtube",
-      "video_id": "aqz-KE-bpKQ",
-      "durata": "2:05",
-      "ordine": 2,
+      "video_id": "19jtJWNiD_w",
+      "durata": "",
+      "ordine": 1,
+      "verticale": true,
       "titolo": {
-        "it": "Usare la lavatrice",
-        "en": "Using the washing machine",
-        "fr": "Utiliser le lave-linge",
-        "es": "Usar la lavadora",
-        "de": "Die Waschmaschine benutzen"
+        "it": "Accendere il condizionatore",
+        "en": "Turning on the air conditioner",
+        "fr": "Allumer la climatisation",
+        "es": "Encender el aire acondicionado",
+        "de": "Klimaanlage einschalten"
       }
     },
     {
-      "id": "funicolare",
-      "sezione": "trasporti",
+      "id": "usare-televisore",
+      "sezione": "servizi",
       "piattaforma": "youtube",
-      "video_id": "aqz-KE-bpKQ",
-      "durata": "1:45",
-      "ordine": 3,
+      "video_id": "wFDW4LDXaQM",
+      "durata": "",
+      "ordine": 2,
+      "verticale": true,
       "titolo": {
-        "it": "Prendere la funicolare del Piazzo",
-        "en": "Taking the Piazzo funicular",
-        "fr": "Prendre le funiculaire du Piazzo",
-        "es": "Coger el funicular del Piazzo",
-        "de": "Mit der Piazzo-Standseilbahn fahren"
+        "it": "Usare il televisore",
+        "en": "Using the TV",
+        "fr": "Utiliser la télévision",
+        "es": "Usar el televisor",
+        "de": "Fernseher benutzen"
+      }
+    },
+    {
+      "id": "accendere-luci",
+      "sezione": "servizi",
+      "piattaforma": "youtube",
+      "video_id": "1be182GMd7k",
+      "durata": "",
+      "ordine": 3,
+      "verticale": true,
+      "titolo": {
+        "it": "Accendere le luci",
+        "en": "Turning on the lights",
+        "fr": "Allumer les lumières",
+        "es": "Encender las luces",
+        "de": "Lichter einschalten"
       }
     }
   ],

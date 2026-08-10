@@ -17,15 +17,14 @@ import {
   type Video,
 } from "./schema";
 
-/** Ogni pagina si rigenera al massimo ogni 10 minuti (vedi `revalidate` nelle page). */
-export const REVALIDATE_SECONDS = 600;
+/** In sviluppo disattiviamo la cache per vedere le modifiche al foglio all'istante. */
+export const REVALIDATE_SECONDS = process.env.NODE_ENV === "development" ? 0 : 600;
 
 const SHEET_ID = process.env.SHEET_ID;
+const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
 
 /**
- * Endpoint `gviz`: legge un foglio condiviso in sola lettura ("chiunque abbia il
- * link") senza API key né service account, e indirizza i tab **per nome** — così
- * aggiungere un tab non richiede di scoprire e configurare il suo `gid`.
+ * Endpoint `gviz` (fallback quando GOOGLE_API_KEY non è impostata).
  */
 function tabUrl(tab: string): string {
   return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(tab)}`;
@@ -35,20 +34,65 @@ function tabUrl(tab: string): string {
  * Normalizza le intestazioni: "Distanza M ", "distanza_m", "Distanza-m" e
  * "Distanza (m)" diventano tutte `distanza_m`. Toglie anche gli accenti, così
  * "Attività" non diventa una colonna diversa da "attivita".
+ * Se la riga di intestazione del foglio contiene valori concatenati (es. "id osteria..."),
+ * estrae la prima parola chiave come nome colonna.
  */
-function normalizeHeader(header: string): string {
-  return header
+function normalizeHeader(header: string, index: number): string {
+  let cleaned = header.trim();
+  const firstWord = cleaned.split(/[\s\r\n]+/)[0];
+  if (firstWord && firstWord.length > 0) {
+    cleaned = firstWord;
+  }
+
+  const normalized = cleaned
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
     .trim()
     .replace(/[^a-z0-9]+/g, "_")
     .replace(/^_+|_+$/g, "");
+
+  return normalized || `col_${index}`;
 }
 
 type Row = Record<string, string | undefined>;
 
 async function fetchTab(tab: string): Promise<Row[]> {
+  if (GOOGLE_API_KEY) {
+    const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(tab)}?key=${GOOGLE_API_KEY}`;
+    const res = await fetch(apiUrl, {
+      next: { revalidate: REVALIDATE_SECONDS, tags: ["sheet"] },
+    });
+
+    if (!res.ok) {
+      const errText = await res.text().catch(() => "");
+      throw new Error(`Google Sheets API v4 (tab "${tab}") errore ${res.status}: ${errText}`);
+    }
+
+    const data = (await res.json()) as { values?: string[][] };
+    const matrix = data.values || [];
+
+    if (matrix.length === 0) return [];
+
+    const rawHeaders = matrix[0] || [];
+    const headers = rawHeaders.map((h, i) => normalizeHeader(h, i));
+
+    const rows: Row[] = [];
+    for (let r = 1; r < matrix.length; r++) {
+      const rowData = matrix[r];
+      if (!rowData || rowData.every((cell) => !cell || cell.trim() === "")) {
+        continue;
+      }
+      const rowObj: Row = {};
+      headers.forEach((header, colIdx) => {
+        const val = rowData[colIdx];
+        rowObj[header] = val !== undefined && val !== null && String(val).trim() !== "" ? String(val) : undefined;
+      });
+      rows.push(rowObj);
+    }
+    return rows;
+  }
+
   const res = await fetch(tabUrl(tab), {
     next: { revalidate: REVALIDATE_SECONDS, tags: ["sheet"] },
   });
@@ -63,7 +107,7 @@ async function fetchTab(tab: string): Promise<Row[]> {
   if (csv.trimStart().startsWith("<")) {
     throw new Error(
       `Google Sheet: tab "${tab}" non è leggibile pubblicamente. ` +
-        `Condividi il foglio come "Chiunque abbia il link → Visualizzatore".`,
+        `Imposta GOOGLE_API_KEY o condividi il foglio come "Chiunque abbia il link → Visualizzatore".`,
     );
   }
 
@@ -132,7 +176,9 @@ function fallbackData(): GuestBookData {
 }
 
 async function loadFromSheet(): Promise<GuestBookData> {
-  const [luoghi, info, regole, video, faq] = await Promise.all([
+  const fallback = fallbackData();
+
+  const results = await Promise.allSettled([
     fetchTab("luoghi"),
     fetchTab("info"),
     fetchTab("regole"),
@@ -140,16 +186,40 @@ async function loadFromSheet(): Promise<GuestBookData> {
     fetchTab("faq"),
   ]);
 
+  const [luoghiRes, infoRes, regoleRes, videoRes, faqRes] = results;
+
+  const luoghiRows = luoghiRes.status === "fulfilled" ? luoghiRes.value : [];
+  const infoRows = infoRes.status === "fulfilled" ? infoRes.value : [];
+  const regoleRows = regoleRes.status === "fulfilled" ? regoleRes.value : [];
+  const videoRows = videoRes.status === "fulfilled" ? videoRes.value : [];
+  const faqRows = faqRes.status === "fulfilled" ? faqRes.value : [];
+
+  const parsedLuoghi = byOrder(validate("luoghi", luoghiRows, PlaceSchema, shape.luoghi) as Place[]).filter(
+    (p) => p.attivo,
+  );
+
+  const parsedInfo = toInfoMap(validate("info", infoRows, InfoSchema, shape.info));
+
+  const parsedRegole = byOrder(validate("regole", regoleRows, RuleSchema, shape.regole) as Rule[]);
+
+  const parsedVideo = byOrder(validate("video", videoRows, VideoSchema, shape.video) as Video[]).filter(
+    (v) => v.video_id,
+  );
+
+  const parsedFaq = byOrder(validate("faq", faqRows, FaqSchema, shape.faq) as Faq[]);
+
+  const parsedIds = new Set(parsedLuoghi.map((p) => p.id));
+  const mergedLuoghi = [
+    ...parsedLuoghi,
+    ...fallback.luoghi.filter((p) => !parsedIds.has(p.id)),
+  ];
+
   return {
-    luoghi: byOrder(validate("luoghi", luoghi, PlaceSchema, shape.luoghi) as Place[]).filter(
-      (p) => p.attivo,
-    ),
-    info: toInfoMap(validate("info", info, InfoSchema, shape.info)),
-    regole: byOrder(validate("regole", regole, RuleSchema, shape.regole) as Rule[]),
-    video: byOrder(validate("video", video, VideoSchema, shape.video) as Video[]).filter(
-      (v) => v.video_id,
-    ),
-    faq: byOrder(validate("faq", faq, FaqSchema, shape.faq) as Faq[]),
+    luoghi: mergedLuoghi.length > 0 ? mergedLuoghi : fallback.luoghi,
+    info: { ...fallback.info, ...parsedInfo },
+    regole: parsedRegole.length > 0 ? parsedRegole : fallback.regole,
+    video: parsedVideo.length > 0 ? parsedVideo : fallback.video,
+    faq: parsedFaq.length > 0 ? parsedFaq : fallback.faq,
   };
 }
 

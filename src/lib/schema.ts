@@ -104,10 +104,22 @@ export const PLACE_SECTIONS = [
 
 export type PlaceSection = (typeof PLACE_SECTIONS)[number];
 
+function normalizeSection(raw: string): PlaceSection {
+  const s = raw.trim().toLowerCase();
+  if (s.includes("ristorant") || s.includes("pizzeri") || s.includes("trattori") || s.includes("cibo")) return "ristoranti";
+  if (s.includes("supermercat") || s.includes("negoz") || s.includes("shopp")) return "shopping";
+  if (s.includes("farmac") || s.includes("medico") || s.includes("ospedal") || s.includes("emergenz")) return "emergenza";
+  if (s.includes("bar") || s.includes("caff") || s.includes("pasticceri") || s.includes("gelater")) return "bar";
+  if (s.includes("trasport") || s.includes("bus") || s.includes("treno") || s.includes("parcheggi")) return "trasporti";
+  if (s.includes("attivita") || s.includes("attività") || s.includes("museo") || s.includes("tour")) return "attivita";
+  if (s.includes("serviz")) return "servizi";
+  return (PLACE_SECTIONS as readonly string[]).includes(s) ? (s as PlaceSection) : "ristoranti";
+}
+
 export const PlaceSchema = z
   .object({
     id: text,
-    sezione: z.string().transform((v) => v.trim().toLowerCase()),
+    sezione: z.string().transform((v) => normalizeSection(v)),
     nome: z.string().transform((v) => v.trim()),
     categoria: text,
     indirizzo: text,
@@ -123,10 +135,7 @@ export const PlaceSchema = z
     attivo: bool(true),
     desc: MultilangSchema,
   })
-  .refine((v) => v.nome.length > 0, { message: "nome mancante" })
-  .refine((v) => (PLACE_SECTIONS as readonly string[]).includes(v.sezione), {
-    message: `sezione non valida (attese: ${PLACE_SECTIONS.join(", ")})`,
-  });
+  .refine((v) => v.nome.length > 0, { message: "nome mancante" });
 
 export type Place = Omit<z.infer<typeof PlaceSchema>, "sezione"> & {
   sezione: PlaceSection;
@@ -134,10 +143,15 @@ export type Place = Omit<z.infer<typeof PlaceSchema>, "sezione"> & {
 
 // ---------------------------------------------------------------- info
 
-export const InfoSchema = z.object({
-  chiave: z.string().transform((v) => v.trim().toLowerCase()),
-  val: MultilangSchema,
-});
+export const InfoSchema = z
+  .object({
+    chiave: z
+      .string()
+      .optional()
+      .transform((v) => v?.trim().toLowerCase() ?? ""),
+    val: MultilangSchema,
+  })
+  .refine((v) => v.chiave.length > 0, { message: "chiave mancante" });
 
 export type InfoRow = z.infer<typeof InfoSchema>;
 export type InfoMap = Record<string, Partial<Record<Lang, string>>>;
