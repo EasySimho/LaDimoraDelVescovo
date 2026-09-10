@@ -8,6 +8,7 @@ import { PlaceList } from "@/components/PlaceList";
 import { RichText } from "@/components/RichText";
 import { RulesList } from "@/components/RulesList";
 import { VideoFacade } from "@/components/VideoFacade";
+import { WelcomeGallery } from "@/components/WelcomeGallery";
 import { getDict, isLang, LANGS, pick, type Lang } from "@/lib/i18n";
 import type { GuestBookData, Video } from "@/lib/schema";
 import { getSection, SECTIONS, type Section } from "@/lib/sections";
@@ -101,7 +102,12 @@ function Body({
 
     case "text": {
       const text = section.infoKey ? pick(info[section.infoKey] ?? {}, lang) : "";
-      return text ? <RichText text={text} /> : <Empty lang={lang} />;
+      return (
+        <div className="space-y-6">
+          {text ? <RichText text={text} /> : <Empty lang={lang} />}
+          {section.key === "benvenuto" && <WelcomeGallery />}
+        </div>
+      );
     }
 
     case "rules":
