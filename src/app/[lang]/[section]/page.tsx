@@ -135,14 +135,7 @@ function Body({
       );
 
     case "map":
-      return (
-        <MapCard
-          lang={lang}
-          address={pick(info.indirizzo_casa ?? {}, lang)}
-          lat={toCoord(info.coord_lat)}
-          lng={toCoord(info.coord_lng)}
-        />
-      );
+      return <MapCard lang={lang} />;
 
     case "faq": {
       const items = data.faq
